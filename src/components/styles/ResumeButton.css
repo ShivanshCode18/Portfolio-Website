@@ -1,0 +1,49 @@
+.resume-download-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(196, 129, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(196, 129, 255, 0.4);
+  color: #c481ff;
+  padding: 12px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Geist", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  z-index: 1000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(196, 129, 255, 0.1);
+}
+
+.resume-download-btn:hover {
+  background: rgba(196, 129, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(196, 129, 255, 0.4), inset 0 0 15px rgba(196, 129, 255, 0.2);
+  color: #fff;
+}
+
+.resume-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.resume-download-btn:hover .resume-icon {
+  transform: translateY(2px);
+}
+
+@media screen and (max-width: 768px) {
+  .resume-download-btn {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}

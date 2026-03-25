@@ -8,21 +8,16 @@ const Landing = ({ children }: PropsWithChildren) => {
         <div className="landing-container">
           <div className="landing-intro">
             <h2>Hello! I'm</h2>
+            <h1>SHIVANSH</h1>
             <h1>
-              MONCY
-              <br />
-              <span>YOHANNAN</span>
+              <span>TEOTIA</span>
             </h1>
           </div>
           <div className="landing-info">
-            <h3>A Creative</h3>
-            <h2 className="landing-info-h2">
-              <div className="landing-h2-1">Designer</div>
-              <div className="landing-h2-2">Developer</div>
-            </h2>
-            <h2>
-              <div className="landing-h2-info">Developer</div>
-              <div className="landing-h2-info-1">Designer</div>
+            <h3>A Passionate</h3>
+            <h2 className="landing-info-h2" style={{ flexDirection: "column", gap: "10px" }}>
+              <div className="landing-h2-1">Data</div>
+              <div className="landing-h2-1">Engineer</div>
             </h2>
           </div>
         </div>

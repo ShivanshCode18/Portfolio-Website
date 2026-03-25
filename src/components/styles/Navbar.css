@@ -45,6 +45,18 @@
   font-size: 14px;
   letter-spacing: 0.2px;
 }
+.logo-face {
+  font-size: 28px;
+  display: inline-block;
+  animation: faceFloat 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(168, 130, 255, 0.4));
+}
+@keyframes faceFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-5deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-2px) rotate(5deg); }
+}
 @media only screen and (min-width: 500px) {
   .header {
     padding: 20px 0px;
@@ -80,4 +92,13 @@
   .navbar-title {
     font-size: 18px;
   }
+}
+
+.navbar-photo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(168, 130, 255, 0.4));
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
+import gsap from "gsap";
 
 import Marquee from "react-fast-marquee";
 
@@ -23,6 +24,43 @@ const Loading = ({ percent }: { percent: number }) => {
     import("./utils/initialFX").then((module) => {
       if (isLoaded) {
         setClicked(true);
+        
+        const loaderPhoto = document.querySelector('.profile-photo-loader') as HTMLElement;
+        const navbarPhoto = document.querySelector('.navbar-photo') as HTMLElement;
+        
+        if (loaderPhoto && navbarPhoto) {
+          const loaderRect = loaderPhoto.getBoundingClientRect();
+          const navRect = navbarPhoto.getBoundingClientRect();
+          
+          const clonedPhoto = loaderPhoto.cloneNode(true) as HTMLElement;
+          document.body.appendChild(clonedPhoto);
+          
+          clonedPhoto.style.position = 'fixed';
+          clonedPhoto.style.top = `${loaderRect.top}px`;
+          clonedPhoto.style.left = `${loaderRect.left}px`;
+          clonedPhoto.style.width = `${loaderRect.width}px`;
+          clonedPhoto.style.height = `${loaderRect.height}px`;
+          clonedPhoto.style.margin = '0';
+          clonedPhoto.style.zIndex = '99999999';
+          
+          loaderPhoto.style.opacity = '0';
+
+          const deltaX = navRect.left - loaderRect.left;
+          const deltaY = navRect.top - loaderRect.top;
+          
+          gsap.to(clonedPhoto, {
+            x: deltaX,
+            y: deltaY,
+            width: navRect.width,
+            height: navRect.height,
+            duration: 0.9,
+            ease: "power3.inOut",
+            onComplete: () => {
+              clonedPhoto.remove();
+            }
+          });
+        }
+
         setTimeout(() => {
           if (module.initialFX) {
             module.initialFX();
@@ -45,8 +83,8 @@ const Loading = ({ percent }: { percent: number }) => {
   return (
     <>
       <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
-          Logo
+        <a href="/#" className="loader-title" data-cursor="disable" style={{ opacity: 0, pointerEvents: "none" }}>
+          <span className="logo-face">🧑‍💻</span>
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
           <div className="loaderGame-container">
@@ -62,10 +100,11 @@ const Loading = ({ percent }: { percent: number }) => {
       <div className="loading-screen">
         <div className="loading-marquee">
           <Marquee>
-            <span> A Creative Developer</span> <span>A Creative Designer</span>
-            <span> A Creative Developer</span> <span>A Creative Designer</span>
+            <span> A Data Engineer</span> <span>A Data Engineer</span>
+            <span> A Data Engineer</span> <span>A Data Engineer</span>
           </Marquee>
         </div>
+        <img src="/images/profile.jpeg" className="profile-photo-loader" alt="Profile" />
         <div
           className={`loading-wrap ${clicked && "loading-clicked"}`}
           onMouseMove={(e) => handleMouseMove(e)}

@@ -6,9 +6,12 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quis
-          dolores numquam iusto Ratione earum ducimus autem id iure pariatur
-          dolorum quae maiores.
+          I'm Shivansh Teotia, a B.Tech Computer Science student at Lovely
+          Professional University with a passion for data analytics and machine
+          learning. I specialize in building end-to-end data pipelines, predictive
+          analytics systems, and interactive data visualizations. With expertise in
+          Python, SQL, and cloud technologies like AWS and Azure, I love
+          transforming raw data into actionable insights.
         </p>
       </div>
     </div>

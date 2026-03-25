@@ -1,14 +1,48 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
-import { SplitText } from "gsap-trial/SplitText";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Simple text splitting utility (replaces premium SplitText plugin)
+function splitTextIntoSpans(
+  element: HTMLElement,
+  type: "chars" | "words" | "lines" = "chars"
+): HTMLElement[] {
+  const text = element.textContent || "";
+  element.innerHTML = "";
+  const spans: HTMLElement[] = [];
+
+  if (type === "chars" || type === "words") {
+    const words = text.split(/\s+/);
+    words.forEach((word, wordIndex) => {
+      if (type === "words") {
+        const span = document.createElement("span");
+        span.style.display = "inline-block";
+        span.textContent = word;
+        element.appendChild(span);
+        spans.push(span);
+      } else {
+        word.split("").forEach((char) => {
+          const span = document.createElement("span");
+          span.style.display = "inline-block";
+          span.textContent = char;
+          element.appendChild(span);
+          spans.push(span);
+        });
+      }
+      if (wordIndex < words.length - 1) {
+        element.appendChild(document.createTextNode(" "));
+      }
+    });
+  }
+
+  return spans;
+}
 
 interface ParaElement extends HTMLElement {
   anim?: gsap.core.Animation;
-  split?: SplitText;
+  originalHTML?: string;
 }
-
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
 
 export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
@@ -23,16 +57,14 @@ export default function setSplitText() {
     para.classList.add("visible");
     if (para.anim) {
       para.anim.progress(1).kill();
-      para.split?.revert();
+      if (para.originalHTML) para.innerHTML = para.originalHTML;
     }
 
-    para.split = new SplitText(para, {
-      type: "lines,words",
-      linesClass: "split-line",
-    });
+    para.originalHTML = para.innerHTML;
+    const words = splitTextIntoSpans(para, "words");
 
     para.anim = gsap.fromTo(
-      para.split.words,
+      words,
       { autoAlpha: 0, y: 80 },
       {
         autoAlpha: 1,
@@ -51,14 +83,13 @@ export default function setSplitText() {
   titles.forEach((title: ParaElement) => {
     if (title.anim) {
       title.anim.progress(1).kill();
-      title.split?.revert();
+      if (title.originalHTML) title.innerHTML = title.originalHTML;
     }
-    title.split = new SplitText(title, {
-      type: "chars,lines",
-      linesClass: "split-line",
-    });
+    title.originalHTML = title.innerHTML;
+    const chars = splitTextIntoSpans(title, "chars");
+
     title.anim = gsap.fromTo(
-      title.split.chars,
+      chars,
       { autoAlpha: 0, y: 80, rotate: 10 },
       {
         autoAlpha: 1,

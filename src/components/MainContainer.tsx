@@ -9,6 +9,8 @@ import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
 import setSplitText from "./utils/splitText";
+import ResumeButton from "./ResumeButton";
+import CertificatesAchievements from "./CertificatesAchievements";
 
 const TechStack = lazy(() => import("./TechStack"));
 
@@ -32,6 +34,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   return (
     <div className="container-main">
       <Cursor />
+      <ResumeButton />
       <Navbar />
       <SocialIcons />
       {isDesktopView && children}
@@ -48,6 +51,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
                 <TechStack />
               </Suspense>
             )}
+            <CertificatesAchievements />
             <Contact />
           </div>
         </div>
